@@ -28,8 +28,6 @@ This application supports OWNER, ADMIN, and USER roles with secure authenticatio
 
 ## 🔐 Environment Configuration
 
-Inside the `server/server.js` file there is `createOwner()` function in app.listen which is commented just uncomment it once after application run then comment that function
-
 Inside the `server/` directory, create a `.env` file:
 
 ```

@@ -1,11 +1,12 @@
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
+import cookie from "cookie";
 import { userModel as User } from "../models/user.model.js";
 
 const socketConfig = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: "http:localhost:4200",
+      origin: "http://localhost:4200",
       credentials: true,
     },
   });
@@ -36,11 +37,11 @@ const socketConfig = (server) => {
     }
   });
 
-  io.on("connection", (socket) => {
+  io.on("connection", async (socket) => {
     const userId = socket.user._id.toString();
-    console.log(`Socket Connected: ${socket.user.username}`);
     socket.join(userId);
-    socket.emit("balance-update", socket.user.balance);
+    const freshUser = await User.findById(userId);
+    socket.emit("balance-update", freshUser.balance);
     socket.on("disconnect", () => {
       console.log(`Socket disconnected: ${socket.user.username}`);
     });

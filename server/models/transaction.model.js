@@ -19,12 +19,7 @@ const transactionSchema = new mongoose.Schema(
     type: {
       type: String,
       enum: ["CREDIT", "DEBIT"],
-      required: true,
-    },
-    description: {
-      type: String,
-      default: "",
-    },
+    }
   },
   {
     timestamps: true,

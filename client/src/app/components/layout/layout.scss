@@ -1,0 +1,24 @@
+.layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // prevent body scroll
+}
+
+app-header {
+  flex-shrink: 0; // header keeps its height (6rem)
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow: hidden; // important
+  min-height: 0; // prevents flex overflow bug
+}
+
+.page {
+  flex: 1;
+  overflow-y: auto; // ONLY content scrolls
+  padding: 2rem;
+  min-height: 0; // important for scroll
+}

@@ -1,0 +1,13 @@
+<div class="sidebar-container">
+  <ul class="navbar-items">
+    <li
+      class="navbar-item"
+      *ngFor="let item of menu"
+      [routerLink]="item.link"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <a class="navbar-link">{{ item.label }}</a>
+    </li>
+  </ul>
+</div>

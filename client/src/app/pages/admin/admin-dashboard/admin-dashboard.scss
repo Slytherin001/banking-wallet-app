@@ -1,0 +1,24 @@
+.dashboard-container {
+  .dashboard {
+    width: 100%;
+    padding: 2rem;
+    .dashboard-header {
+      letter-spacing: 0.1rem;
+      margin-bottom: 2rem;
+      box-shadow:
+        rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+        rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+    }
+
+    .transaction-table-container {
+      box-shadow:
+        rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+        rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      padding: 3rem 2rem;
+      margin-top: 2rem;
+      border-radius: 0.5rem;
+    }
+  }
+}

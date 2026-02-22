@@ -1,0 +1,97 @@
+.create-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 6rem);
+  .create-form {
+    width: 350px;
+    padding: 2rem;
+    box-shadow:
+      rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+      rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .admin-header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+      h1 {
+        letter-spacing: 0.2rem;
+      }
+      p {
+        font-size: 1.2rem;
+      }
+    }
+    .form-control:has(button) {
+      border: none;
+    }
+    .form-control {
+      width: 100%;
+      border-radius: 0.5rem;
+      input.ng-invalid.ng-touched {
+        border: 1px solid #dc3545;
+      }
+
+      .error {
+        color: #dc3545;
+        font-size: 1.4rem;
+        margin: 0.2rem 0.1rem;
+      }
+      input {
+        width: 100%;
+        padding: 1rem;
+        outline: none;
+        border: 1px solid #c4c4c4;
+        border-radius: 0.5rem;
+      }
+      button {
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        cursor: pointer;
+        color: white;
+        border-radius: 0.5rem;
+      }
+    }
+    .password-field {
+      display: flex;
+      flex-direction: column;
+
+      .input-wrapper {
+        position: relative;
+        width: 100%;
+
+        input {
+          width: 100%;
+          padding: 1rem;
+          padding-right: 3rem; // important space for icon
+        }
+
+        .fa {
+          position: absolute;
+          right: 1rem;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          font-size: 1.2rem;
+        }
+      }
+    }
+    button {
+      padding: 0.8rem;
+      border: none;
+      background-color: #1e40af;
+      color: white;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in;
+      &:hover {
+        background-color: #0033a1;
+      }
+    }
+  }
+}

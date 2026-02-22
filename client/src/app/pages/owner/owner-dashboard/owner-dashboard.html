@@ -1,0 +1,47 @@
+<div class="dashboard-container">
+  <div class="dashboard">
+    <h1 class="dashboard-header">Owner Dashboard</h1>
+    <form class="add-money-form" (ngSubmit)="handleAddMoney(addMoneyForm)" #addMoneyForm="ngForm">
+      <div class="form-control">
+        <h2>Add Money</h2>
+        <div class="input-wrapper">
+          <span
+            class="rupee-icon"
+            [class.invalid-border]="amountRef.invalid && addMoneyForm.submitted"
+            >₹</span
+          >
+          <input
+            type="text"
+            name="amount"
+            ngModel
+            #amountRef="ngModel"
+            placeholder="Please enter amount"
+            #amountInput
+            required
+            min="1"
+            [class.invalid-border]="amountRef.invalid && addMoneyForm.submitted"
+            appRupeeFormatDirective
+          />
+        </div>
+
+        <!-- Error messages -->
+        <div class="error-wrapper">
+          <small class="error" *ngIf="amountRef.errors?.['required'] && addMoneyForm.submitted">
+            Amount is required
+          </small>
+          <small class="error" *ngIf="amountRef.errors?.['min'] && addMoneyForm.submitted">
+            Amount must be at least ₹1
+          </small>
+        </div>
+      </div>
+      <button type="submit">Add Money</button>
+    </form>
+    <div class="transaction-table-container">
+      <app-transaction-table [limit]="5" [showPagination]="false" [showViewAll]="true">
+      </app-transaction-table>
+    </div>
+    <div class="transaction-table-container">
+      <app-user-table [limit]="5" [showPagination]="false" [showViewAll]="true"   ></app-user-table>
+    </div>
+  </div>
+</div>

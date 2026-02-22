@@ -1,0 +1,59 @@
+<div class="table-container">
+  <h2 class="transaction-header">Transaction History</h2>
+  <div *ngIf="isLoading$ | async" class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+
+  <ng-container *ngIf="allTransactions$ | async as allTransactions">
+    <!-- Show table only if data exists -->
+    <table class="custom-table" *ngIf="allTransactions.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th>Amount</th>
+          <th>Type</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let trans of allTransactions">
+          <td>{{ trans.fromUser?.username || 'Top-Up' }}</td>
+          <td>{{ trans.toUser?.username }}</td>
+          <td>{{ trans.amount | rupeeFormat }}</td>
+          <td
+            [ngClass]="{
+              debit: trans.type === 'DEBIT',
+              credit: trans.type === 'CREDIT',
+            }"
+          >
+            {{ trans.type }}
+          </td>
+          <td>{{ trans.createdAt | formattedDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty State -->
+    <ng-template #noData>
+      <div class="no-data">
+        <div class="no-data-icon">💳</div>
+        <h3>No Transactions Yet</h3>
+        <p>There is no transaction history available at the moment.</p>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <ng-container *ngIf="pagination$ | async as pagination">
+    <app-pagination
+      *ngIf="pagination.totalPages > 1 && showPagination"
+      [pagination]="pagination"
+      (pageChange)="changePage($event)"
+    ></app-pagination>
+  </ng-container>
+</div>
+
+<div class="view-all-button" *ngIf="showViewAll">
+  <button (click)="goToFullHistory()">View All</button>
+</div>

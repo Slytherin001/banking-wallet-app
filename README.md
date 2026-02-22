@@ -1,59 +1,248 @@
-# Client
+# 💳 Banking Wallet Application (Full Stack)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+A role-based digital wallet system built using **Angular (Frontend)** and **Node.js + Express (Backend)**.
 
-## Development server
+This application supports OWNER, ADMIN, and USER roles with secure authentication, money transfer, credit/debit transactions, and paginated transaction history.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+## 🚀 Tech Stack
+
+### 🔹 Frontend (client/)
+
+- Angular (Standalone Components)
+- RxJS (BehaviorSubject state management)
+- SCSS
+- ngx-toastr
+- Custom Pipes (Rupee Format, Date Format)
+
+### 🔹 Backend (server/)
+
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- JWT Authentication (HTTP-only cookies)
+- REST APIs
+
+---
+
+## 🔐 Environment Configuration
+
+Inside the `server/` directory, create a `.env` file:
+
+```
+MONGO_URI=<your_mongodb_connection_string>
+PORT=5000
+OWNER_USERNAME=<default_owner_username>
+OWNER_PASSWORD=<default_owner_password>
+OWNER_ROLE=OWNER
+JWT_SECRET=<your_secure_secret_key>
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### ⚠️ Security Notice
 
-## Code scaffolding
+- Never commit your `.env` file
+- Add `.env` to `.gitignore`
+- Always use strong passwords and secrets in production
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 📂 Project Structure
 
-```bash
-ng generate component component-name
+```
+root/
+ ├── client/              → Angular Frontend
+ ├── server/              → Node.js Backend
+ ├── package.json         → Runs both frontend & backend
+ ├── package-lock.json
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
+
+## ✨ Features
+
+### 🔐 Authentication & Roles
+
+- Role-based login system
+- OWNER → Can create Admin & credit money to admin only
+- ADMIN → Can create Users & credit money to user only
+- USER → Can transfer money & view transactions
+- Secure authentication using cookies
+
+---
+
+### 💰 Wallet System
+
+- Credit money
+- Debit money
+- Transfer money
+- Real-time balance updates
+- Transaction history tracking
+
+---
+
+### 📊 Transaction Management
+
+- Paginated transaction history
+- Custom formatted currency (₹)
+- Date formatting pipe
+- Dynamic debit/credit styling
+
+---
+
+### 🧩 UI & UX
+
+- Clean dashboard layout
+- Custom dropdowns
+- Toast notifications
+- Loading spinners
+- Responsive design
+
+---
+
+## 🛠 Installation & Setup
+
+### 1️⃣ Clone Repository
 
 ```bash
-ng generate --help
+git clone <your-repository-url>
+cd <project-folder>
 ```
 
-## Building
+---
 
-To build the project run:
+### 2️⃣ Install Root Dependencies
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### 3️⃣ Install Frontend Dependencies
 
 ```bash
+cd client
+npm install
+```
+
+---
+
+### 4️⃣ Install Backend Dependencies
+
+```bash
+cd ../server
+npm install
+```
+
+---
+
+## ▶️ Running the Application
+
+From the **root folder**, run:
+
+```bash
+npm run dev
+```
+
+✅ This single command will automatically start:
+
+- Angular Frontend (usually on: http://localhost:4200)
+- Node Backend (usually on: http://localhost:5000)
+
+No need to start them separately.
+
+---
+
+## 🌐 API Base URL
+
+```
+http://localhost:5000/api/v1
+```
+
+Make sure MongoDB is running before starting the server.
+
+---
+
+## 🔄 Example Workflow
+
+1. OWNER creates ADMIN
+2. ADMIN creates USER
+3. ADMIN credits money to USER
+4. USER transfers money
+5. Transactions appear in history with pagination
+
+---
+
+## 📦 Environment Variables (Server)
+
+Create a `.env` file inside the `server/` folder:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+---
+
+## 📊 State Management Approach
+
+The frontend uses:
+
+- BehaviorSubject for reactive data handling
+- Observables for transaction updates
+- Role-based dynamic data loading
+- Pagination state handling
+
+---
+
+## 🔒 Security
+
+- HTTP-only cookies for authentication
+- Role-based route guards
+- Protected backend routes
+- Input validation
+
+---
+
+## 📈 Future Improvements
+
+- WebSocket for real-time transaction updates
+- Dashboard analytics
+- Export transaction history (PDF/CSV)
+- Docker support
+- Deployment to cloud (Render / AWS / Vercel)
+
+---
+
+## 🧪 Testing
+
+You can run Angular tests with:
+
+```bash
+cd client
 ng test
 ```
 
-## Running end-to-end tests
+Backend testing can be added using:
 
-For end-to-end (e2e) testing, run:
+- Jest
+- Supertest
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 👨‍💻 Author
 
-## Additional Resources
+MD KAIF ALI
+Full Stack Developer
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 📜 License
+
+This project is for educational and portfolio purposes.
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, consider giving it a ⭐ on GitHub!

@@ -1,0 +1,51 @@
+<div class="notification">
+  <div (click)="toggleNotification()">
+    <i class="fas fa-bell"></i>
+    <span class="badge" *ngIf="unreadCount$ | async as count" [hidden]="count === 0">
+      {{ count }}
+    </span>
+  </div>
+
+  <!-- Notification Dropdown -->
+  <div class="notification-dropdown" [class.show-notification]="isNotification">
+    <div class="dropdown-header">
+      <label class="custom-checkbox" *ngIf="(notifications$ | async)?.length > 0">
+        <input
+          type="checkbox"
+          [checked]="isAllSelected"
+          (change)="toggleSelectAllNotifications($event)"
+        />
+        <span class="checkmark"></span>
+        <button class="clear-btn" *ngIf="selectedNotifications.size > 0" (click)="deleteSelected()">
+          {{ `Delete (${selectedNotifications.size})` }}
+        </button>
+      </label>
+      <span>Notifications</span>
+    </div>
+
+    <div class="dropdown-list">
+      <div
+        class="notification-item"
+        [class.unread]="!notif.read"
+        *ngFor="let notif of notifications$ | async"
+      >
+        <label class="custom-checkbox">
+          <input
+            type="checkbox"
+            [checked]="selectedNotifications.has(notif._id)"
+            (change)="onCheckboxChange(notif._id, $event)"
+          />
+          <span class="checkmark"></span>
+        </label>
+        <div class="content" (click)="markAsRead(notif)">
+          <p class="message">{{ notif.message }}</p>
+          <span class="time">{{ notif.createdAt | formattedDate }}</span>
+        </div>
+        <i class="fas fa-trash delete-icon" (click)="deleteNotification(notif._id, $event)"></i>
+      </div>
+      <div class="no-notifications" *ngIf="(notifications$ | async)?.length === 0">
+        No notifications
+      </div>
+    </div>
+  </div>
+</div>

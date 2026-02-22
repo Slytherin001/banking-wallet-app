@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="login-container">
+    <div class="login-header">
+      <h1 class="header">Login</h1>
+      <h2 class="sub-header">Please enter your credentials</h2>
+    </div>
+    <form class="login-form" (ngSubmit)="handleSubmit(loginForm)" #loginForm="ngForm">
+      <!-- Username -->
+      <div class="form-control">
+        <input
+          type="text"
+          placeholder="Username"
+          [(ngModel)]="username"
+          name="username"
+          #usernameRef="ngModel"
+          required
+        />
+
+        <!-- Error -->
+        <small class="error" *ngIf="usernameRef.invalid && usernameRef.touched">
+          Username is required
+        </small>
+      </div>
+
+      <!-- Password -->
+      <div class="form-control password-field">
+        <div class="input-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Password"
+            [(ngModel)]="password"
+            name="password"
+            #passwordRef="ngModel"
+            required
+          />
+
+          <i
+            class="fa"
+            [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+            (click)="togglePasswordVisibility()"
+          ></i>
+        </div>
+
+        <small class="error" *ngIf="passwordRef.invalid && passwordRef.touched">
+          Password is required
+        </small>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-control">
+        <button type="submit" [disabled]="(isLoading$ | async)!" class="login-btn">
+          <ng-container *ngIf="!(isLoading$ | async); else loading"> Login </ng-container>
+
+          <ng-template #loading>
+            <i class="fas fa-spinner fa-spin"></i> Please wait...
+          </ng-template>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

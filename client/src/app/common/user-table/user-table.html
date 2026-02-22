@@ -1,0 +1,52 @@
+<div class="table-container">
+  <h2 class="transaction-header">My Users</h2>
+  <div *ngIf="isLoading$ | async" class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Balance</th>
+        <th>Created By</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <ng-container *ngIf="currentUser === 'OWNER'">
+      <tbody *ngIf="allData$ | async as allData">
+        <tr *ngFor="let user of allData">
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.balance | rupeeFormat }}</td>
+
+          <td>{{ user.parentId?.username }}</td>
+          <td>{{ user.createdAt | formattedDate }}</td>
+        </tr>
+      </tbody>
+    </ng-container>
+    <ng-container *ngIf="currentUser === 'ADMIN'">
+      <tbody *ngIf="allAdminData$ | async as allAdminData">
+        <tr *ngFor="let user of allAdminData">
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.balance | rupeeFormat }}</td>
+
+          <td>{{ user.parentId?.username }}</td>
+          <td>{{ user.createdAt | formattedDate }}</td>
+        </tr>
+      </tbody>
+    </ng-container>
+  </table>
+  <ng-container *ngIf="pagination$ | async as pagination">
+    <app-pagination
+      *ngIf="pagination.totalPages > 1 && showPagination"
+      [pagination]="pagination"
+      (pageChange)="changePage($event)"
+    ></app-pagination>
+  </ng-container>
+</div>
+
+<div class="view-all-button" *ngIf="showViewAll">
+  <button (click)="goToFullUser()">View All</button>
+</div>

@@ -4,9 +4,10 @@ import {
   createUserByAdmin,
   creditUserBalance,
   getAdminTransaction,
+  getMyBeneficaries,
+  getMyUsers,
 } from "../controllers/admin.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
-import { getAllUsers } from "../controllers/owner.controller.js";
 const router = express.Router();
 
 router.post(
@@ -15,8 +16,14 @@ router.post(
   isAdmin,
   createUserByAdmin,
 );
-router.post("/credit", authMiddleware, isAdmin, creditUserBalance);
-router.get("/get-my-users", authMiddleware, isAdmin, getAllUsers);
-router.get("/get-admin-transaction",authMiddleware,isAdmin,getAdminTransaction)
+router.post("/credit-money", authMiddleware, isAdmin, creditUserBalance);
+router.get("/get-my-users", authMiddleware, isAdmin, getMyUsers);
+router.get(
+  "/get-admin-transaction",
+  authMiddleware,
+  isAdmin,
+  getAdminTransaction,
+);
+router.get("/get-beneficary", authMiddleware, isAdmin, getMyBeneficaries);
 
 export default router;

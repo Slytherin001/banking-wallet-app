@@ -7,28 +7,31 @@ dotenv.config();
 export const authMiddleware = async (req, resp, next) => {
   try {
     const token = req.cookies?.token;
+
     if (!token) {
       return resp.status(401).json({
         success: false,
-        message: "Unauthorized user token is missing",
+        message: "Unauthorized: token missing",
       });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
     const user = await User.findById(decoded.id).select("-password");
 
     if (!user) {
       return resp.status(401).json({
         success: false,
-        message: "Unauthorized User",
+        message: "Unauthorized user",
       });
     }
+
     req.user = user;
     next();
   } catch (error) {
-    return resp.status(500).json({
+    return resp.status(401).json({
       success: false,
-      message: "Unauthorized invalid toke",
+      message: "Unauthorized: invalid or expired token",
     });
   }
 };

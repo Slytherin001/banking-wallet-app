@@ -1,0 +1,81 @@
+<div class="transfer-container">
+  <div class="transfer">
+    <div class="transfer-header">
+      <h1>Transfer Money</h1>
+      <p>Transfer money to your respective admin</p>
+    </div>
+    <form
+      class="form-container"
+      (ngSubmit)="handleTransferMoney(transferMoney)"
+      #transferMoney="ngForm"
+    >
+      <div
+        class="form-control dropdown-control"
+        [class.dropdown]="isDropdown"
+        (click)="toggleDropdown()"
+      >
+        <div
+          class="selected-option"
+          [class.invalid-border]="
+            (beneficiaryRef.invalid || selectedOptions === 'Select Beneficary') &&
+            transferMoney.submitted
+          "
+          [class.dropdownDefault]="selectedOptions === 'Select Beneficary'"
+        >
+          <span>{{ selectedOptions }}</span>
+          <i class="fa fa-chevron-down" [class.rotate]="isDropdown"></i>
+        </div>
+
+        <ul class="dropdown-menu" [class.active]="isDropdown">
+          <li [class.disabled]="true">Select Beneficary</li>
+          <li (click)="handleSelectOption(user)" *ngFor="let user of beneficaries">
+            {{ user.username }}
+          </li>
+        </ul>
+        <small
+          class="error"
+          *ngIf="
+            (beneficiaryRef.invalid || selectedOptions === 'Select Beneficary') &&
+            transferMoney.submitted
+          "
+        >
+          Beneficiary is required
+        </small>
+      </div>
+      <input
+        type="hidden"
+        name="beneficiary"
+        [(ngModel)]="selectedOptions"
+        #beneficiaryRef="ngModel"
+        required
+        [ngModelOptions]="{ standalone: false }"
+      />
+
+      <div class="form-control">
+        <div
+          class="amount-container"
+          [class.invalid-border]="amountRef.invalid && transferMoney.submitted"
+        >
+          <span class="rupee-icon">₹</span>
+
+          <input
+            type="text"
+            name="amount"
+            ngModel
+            #amountRef="ngModel"
+            placeholder="Please enter amount"
+            required
+            min="1"
+            appRupeeFormatDirective
+          />
+        </div>
+
+        <small class="error" *ngIf="amountRef.invalid && transferMoney.submitted">
+          Amount is required
+        </small>
+      </div>
+
+      <button class="transfer-button">Send Money</button>
+    </form>
+  </div>
+</div>

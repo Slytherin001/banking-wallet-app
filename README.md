@@ -28,6 +28,8 @@ This application supports OWNER, ADMIN, and USER roles with secure authenticatio
 
 ## 🔐 Environment Configuration
 
+Inside the `server/server.js` file there is `createOwner()` function in app.listen which is commented just uncomment it once after application run then comment that function
+
 Inside the `server/` directory, create a `.env` file:
 
 ```
@@ -38,6 +40,26 @@ OWNER_PASSWORD=<default_owner_password>
 OWNER_ROLE=OWNER
 JWT_SECRET=<your_secure_secret_key>
 ```
+
+### Initial Owner Setup
+
+Inside the `server/server.js` file, there is a `createOwner()` function inside `app.listen()`.
+
+This function is commented out by default.
+
+👉 To create the default OWNER account:
+
+1. Uncomment the `createOwner()` function.
+2. Run the application using:
+
+```
+npm run dev
+```
+
+3. Once the owner account is created successfully, comment the `createOwner()` function again.
+4. Restart the application.
+
+This ensures the default OWNER is created only once and prevents duplicate entries.
 
 ### ⚠️ Security Notice
 

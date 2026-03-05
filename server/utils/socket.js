@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
-import cookie from "cookie";
+import cookie from "cookie-parser";
 import { userModel as User } from "../models/user.model.js";
 
 const socketConfig = (server) => {
